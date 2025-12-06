@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import satori from 'satori'
 
-// [중요] 무거운 Resvg(PNG 변환기) 제거
+// Resvg 제거 (SVG 모드)
 // import { initWasm, Resvg } from '@resvg/resvg-wasm'
 // import resvgWasm from '@resvg/resvg-wasm/index_bg.wasm'
 // await initWasm(resvgWasm)
@@ -20,10 +20,8 @@ app.get('/', async (c) => {
     fetch(fontSemiBoldUrl).then((res) => res.arrayBuffer()),
   ])
 
-  // 배경 이미지
   const bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v2%20%EC%99%84%EC%84%B1%EB%B3%B8.png'
 
-  // 2. SVG 생성 (CPU 사용량 적음)
   const svg = await satori(
     <div
       style={{
@@ -44,20 +42,27 @@ app.get('/', async (c) => {
         }}
       />
 
-      {/* === 상단 정보 === */}
+      {/* ================= 1. 상단 정보 (수정된 좌표 적용) ================= */}
+      
+      {/* [Date] 날짜 (사용자 수정본) */}
       <div style={{ position: 'absolute', top: 225, left: 120, fontSize: 60, fontWeight: 600 }}>Date</div>
       <div style={{ position: 'absolute', top: 345, left: 64, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{date || 'N일차'}</div>
 
-      <div style={{ position: 'absolute', top: 150, left: 672, fontSize: 48, fontWeight: 600 }}>Time</div>
-      <div style={{ position: 'absolute', top: 260, left: 640, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{time || 'HH:MM'}</div>
+      {/* [Time] 시간 (자동 계산됨: Top +75, Value Top +85, Value Left -16) */}
+      <div style={{ position: 'absolute', top: 225, left: 672, fontSize: 60, fontWeight: 600 }}>Time</div>
+      <div style={{ position: 'absolute', top: 345, left: 624, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{time || 'HH:MM'}</div>
 
-      <div style={{ position: 'absolute', top: 150, left: 1220, fontSize: 48, fontWeight: 600 }}>Loc</div>
-      <div style={{ position: 'absolute', top: 260, left: 1200, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{loc || '위치'}</div>
+      {/* [Loc] 위치 (자동 계산됨) */}
+      <div style={{ position: 'absolute', top: 225, left: 1220, fontSize: 60, fontWeight: 600 }}>Loc</div>
+      <div style={{ position: 'absolute', top: 345, left: 1184, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{loc || '위치'}</div>
 
-      <div style={{ position: 'absolute', top: 150, left: 1780, fontSize: 48, fontWeight: 600 }}>Class</div>
-      <div style={{ position: 'absolute', top: 260, left: 1760, width: 220, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{job || '직업'}</div>
+      {/* [Class] 직업 (자동 계산됨) */}
+      <div style={{ position: 'absolute', top: 225, left: 1780, fontSize: 60, fontWeight: 600 }}>Class</div>
+      <div style={{ position: 'absolute', top: 345, left: 1744, width: 220, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{job || '직업'}</div>
 
-      {/* === 관계창 === */}
+
+      {/* ================= 2. 관계창 (Relationship) ================= */}
+      
       <div style={{ position: 'absolute', top: 480, left: 510, fontSize: 36, fontWeight: 600 }}>Relationship</div>
       
       <div style={{ position: 'absolute', top: 580, left: 510, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
@@ -76,10 +81,11 @@ app.get('/', async (c) => {
         <div>관계9: 데이터 없음</div>
       </div>
 
-      {/* === 하단 텍스트 === */}
+      {/* ================= 3. 하단 텍스트 ================= */}
       <div style={{ position: 'absolute', top: 860, left: 780, width: 1800, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: 400 }}>
         {/* {text} */}
       </div>
+
     </div>,
     {
       width: 2667,
@@ -91,7 +97,6 @@ app.get('/', async (c) => {
     }
   )
 
-  // 3. SVG 문자열을 그대로 반환 (Content-Type: image/svg+xml)
   return new Response(svg, {
     headers: {
       'Content-Type': 'image/svg+xml',

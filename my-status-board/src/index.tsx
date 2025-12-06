@@ -65,7 +65,7 @@ app.get('/', async (c) => {
       
       <div style={{ position: 'absolute', top: 488, left: 505, fontSize: 48, fontWeight: 600 }}>Relationship</div>
       
-      <div style={{ position: 'absolute', top: 620, left: 510, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
+      <div style={{ position: 'absolute', top: 585, left: 510, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
         <div>관계1: 데이터 없음</div>
         <div>관계2: 데이터 없음</div>
         <div>관계3: 데이터 없음</div>

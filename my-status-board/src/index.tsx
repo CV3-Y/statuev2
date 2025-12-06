@@ -54,11 +54,11 @@ app.get('/', async (c) => {
 
       {/* [Loc] 위치 (자동 계산됨) */}
       <div style={{ position: 'absolute', top: 225, left: 1230, fontSize: 60, fontWeight: 600 }}>Loc</div>
-      <div style={{ position: 'absolute', top: 345, left: 1174, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{loc || '위치'}</div>
+      <div style={{ position: 'absolute', top: 345, left: 1169, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{loc || '위치'}</div>
 
       {/* [Class] 직업 (자동 계산됨) */}
       <div style={{ position: 'absolute', top: 225, left: 1795, fontSize: 60, fontWeight: 600 }}>Class</div>
-      <div style={{ position: 'absolute', top: 345, left: 1734, width: 220, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{job || '직업'}</div>
+      <div style={{ position: 'absolute', top: 345, left: 1729, width: 220, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{job || '직업'}</div>
 
 
       {/* ================= 2. 관계창 (Relationship) ================= */}

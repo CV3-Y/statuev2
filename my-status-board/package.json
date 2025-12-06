@@ -1,5 +1,5 @@
 {
-  "name": "my-status-board",
+  "name": "my-status-board1",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
@@ -7,10 +7,11 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
-    "@vercel/og": "^0.8.5",
-    "hono": "^4.10.7"
+    "hono": "^4.6.12",
+    "satori": "^0.10.11",
+    "@resvg/resvg-wasm": "^2.6.0"
   },
   "devDependencies": {
-    "wrangler": "^4.4.0"
+    "wrangler": "^3.19.0"
   }
 }

@@ -45,8 +45,8 @@ app.get('/', async (c) => {
       />
 
       {/* === 상단 정보 === */}
-      <div style={{ position: 'absolute', top: 150, left: 120, fontSize: 48, fontWeight: 600 }}>Date</div>
-      <div style={{ position: 'absolute', top: 260, left: 80, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{date || 'N일차'}</div>
+      <div style={{ position: 'absolute', top: 250, left: 120, fontSize: 60, fontWeight: 600 }}>Date</div>
+      <div style={{ position: 'absolute', top: 320, left: 80, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{date || 'N일차'}</div>
 
       <div style={{ position: 'absolute', top: 150, left: 672, fontSize: 48, fontWeight: 600 }}>Time</div>
       <div style={{ position: 'absolute', top: 260, left: 640, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{time || 'HH:MM'}</div>

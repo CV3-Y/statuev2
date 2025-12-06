@@ -49,15 +49,15 @@ app.get('/', async (c) => {
       <div style={{ position: 'absolute', top: 345, left: 64, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{date || 'N일차'}</div>
 
       {/* [Time] 시간 (자동 계산됨: Top +75, Value Top +85, Value Left -16) */}
-      <div style={{ position: 'absolute', top: 225, left: 672, fontSize: 60, fontWeight: 600 }}>Time</div>
+      <div style={{ position: 'absolute', top: 225, left: 677, fontSize: 60, fontWeight: 600 }}>Time</div>
       <div style={{ position: 'absolute', top: 345, left: 624, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{time || 'HH:MM'}</div>
 
       {/* [Loc] 위치 (자동 계산됨) */}
-      <div style={{ position: 'absolute', top: 225, left: 1220, fontSize: 60, fontWeight: 600 }}>Loc</div>
+      <div style={{ position: 'absolute', top: 225, left: 1230, fontSize: 60, fontWeight: 600 }}>Loc</div>
       <div style={{ position: 'absolute', top: 345, left: 1184, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{loc || '위치'}</div>
 
       {/* [Class] 직업 (자동 계산됨) */}
-      <div style={{ position: 'absolute', top: 225, left: 1780, fontSize: 60, fontWeight: 600 }}>Class</div>
+      <div style={{ position: 'absolute', top: 225, left: 1795, fontSize: 60, fontWeight: 600 }}>Class</div>
       <div style={{ position: 'absolute', top: 345, left: 1744, width: 220, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{job || '직업'}</div>
 
 

@@ -50,7 +50,7 @@ app.get('/', async (c) => {
 
       {/* [Time] 시간 (자동 계산됨: Top +75, Value Top +85, Value Left -16) */}
       <div style={{ position: 'absolute', top: 225, left: 677, fontSize: 60, fontWeight: 600 }}>Time</div>
-      <div style={{ position: 'absolute', top: 345, left: 624, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{time || 'HH:MM'}</div>
+      <div style={{ position: 'absolute', top: 345, left: 635, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{time || 'HH:MM'}</div>
 
       {/* [Loc] 위치 (자동 계산됨) */}
       <div style={{ position: 'absolute', top: 225, left: 1230, fontSize: 60, fontWeight: 600 }}>Loc</div>

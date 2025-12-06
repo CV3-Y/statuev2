@@ -1,4 +1,4 @@
-name = "my-status-board"
+name = "my-status-board1"
 main = "src/index.tsx"
 compatibility_date = "2024-04-01"
 compatibility_flags = ["nodejs_compat"]

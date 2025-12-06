@@ -11,9 +11,17 @@ const app = new Hono()
 app.get('/', async (c) => {
   const { date, time, loc, job, text } = c.req.query()
 
-  // 폰트 & 배경 설정
-  const fontUrl = 'https://github.com/CV3-Y/staute/raw/refs/heads/main/HangamePoker-Medium.ttf'
-  const fontBuffer = await fetch(fontUrl).then((res) => res.arrayBuffer())
+  // 1. 폰트 불러오기 (Medium과 SemiBold 두 개를 준비합니다)
+  // [주의] 만약 SemiBold 파일명이 다르다면 아래 주소를 꼭 확인해주세요!
+  const fontMediumUrl = 'https://github.com/CV3-Y/staute/raw/refs/heads/main/HangamePoker-Medium.ttf'
+  const fontSemiBoldUrl = 'https://github.com/CV3-Y/staute/raw/refs/heads/main/HangamePoker-SemiBold.ttf'
+
+  // 두 폰트를 동시에 다운로드 (병렬 처리)
+  const [fontMediumBuffer, fontSemiBoldBuffer] = await Promise.all([
+    fetch(fontMediumUrl).then((res) => res.arrayBuffer()),
+    fetch(fontSemiBoldUrl).then((res) => res.arrayBuffer()),
+  ])
+
   const bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v2%20%EC%99%84%EC%84%B1%EB%B3%B8.png'
 
   const svg = await satori(
@@ -25,7 +33,8 @@ app.get('/', async (c) => {
         position: 'relative',
         backgroundColor: 'black',
         color: 'white',
-        fontFamily: '"MyFont"',
+        fontFamily: '"MyFont"', // 기본 폰트 패밀리 적용
+        fontWeight: 400,        // 기본 굵기는 Medium(400)으로 설정
       }}
     >
       {/* 배경 이미지 */}
@@ -36,46 +45,44 @@ app.get('/', async (c) => {
         }}
       />
 
-      {/* [좌표 보정 노트]
-         - 제목(Label) Y좌표: 기존 226 -> 150 (선 위로 올림)
-         - 값(Value) Y좌표: 기존 348 -> 260 (선 아래에 딱 붙임)
-         - 폰트 크기: pt 단위를 px로 변환하여 적용 (제목 45px, 내용 32px)
-      */}
-
       {/* ================= 1. 상단 정보 ================= */}
       
-      {/* [Date] 날짜 */}
-      <div style={{ position: 'absolute', top: 245, left: 120, fontSize: 48, fontWeight: 700 }}>Date</div>
+      {/* [Date] 제목: SemiBold(600) 적용 */}
+      <div style={{ position: 'absolute', top: 150, left: 120, fontSize: 48, fontWeight: 600 }}>Date</div>
+      {/* [Date] 값: Medium(400) 유지 */}
       <div style={{ 
-        position: 'absolute', top: 320, left: 80, width: 200, 
-        display: 'flex', justifyContent: 'center', fontSize: 32, color: '#ffffff' 
+        position: 'absolute', top: 260, left: 80, width: 200, 
+        display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' 
       }}>
         {date || 'N일차'}
       </div>
 
-      {/* [Time] 시간 */}
-      <div style={{ position: 'absolute', top: 150, left: 672, fontSize: 48, fontWeight: 700 }}>Time</div>
+      {/* [Time] 제목: SemiBold(600) 적용 */}
+      <div style={{ position: 'absolute', top: 150, left: 672, fontSize: 48, fontWeight: 600 }}>Time</div>
+      {/* [Time] 값: Medium(400) 유지 */}
       <div style={{ 
         position: 'absolute', top: 260, left: 640, width: 200, 
-        display: 'flex', justifyContent: 'center', fontSize: 32, color: '#ffffff' 
+        display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' 
       }}>
         {time || 'HH:MM'}
       </div>
 
-      {/* [Loc] 위치 */}
-      <div style={{ position: 'absolute', top: 150, left: 1220, fontSize: 48, fontWeight: 700 }}>Loc</div>
+      {/* [Loc] 제목: SemiBold(600) 적용 */}
+      <div style={{ position: 'absolute', top: 150, left: 1220, fontSize: 48, fontWeight: 600 }}>Loc</div>
+      {/* [Loc] 값: Medium(400) 유지 */}
       <div style={{ 
         position: 'absolute', top: 260, left: 1200, width: 200, 
-        display: 'flex', justifyContent: 'center', fontSize: 32, color: '#ffffff' 
+        display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' 
       }}>
         {loc || '위치'}
       </div>
 
-      {/* [Class] 직업 */}
-      <div style={{ position: 'absolute', top: 150, left: 1780, fontSize: 48, fontWeight: 700 }}>Class</div>
+      {/* [Class] 제목: SemiBold(600) 적용 */}
+      <div style={{ position: 'absolute', top: 150, left: 1780, fontSize: 48, fontWeight: 600 }}>Class</div>
+      {/* [Class] 값: Medium(400) 유지 */}
       <div style={{ 
         position: 'absolute', top: 260, left: 1760, width: 220, 
-        display: 'flex', justifyContent: 'center', fontSize: 32, color: '#ffffff' 
+        display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' 
       }}>
         {job || '직업'}
       </div>
@@ -83,38 +90,31 @@ app.get('/', async (c) => {
 
       {/* ================= 2. 관계창 (Relationship) ================= */}
       
-      {/* 제목 */}
-      <div style={{ position: 'absolute', top: 480, left: 510, fontSize: 36 }}>Relationship</div>
+      {/* 제목: SemiBold(600) 적용 */}
+      <div style={{ position: 'absolute', top: 480, left: 510, fontSize: 36, fontWeight: 600 }}>Relationship</div>
       
-      {/* [레이아웃 변경]
-         flex-gap 대신 'absolute'로 각 열(Column)의 위치를 고정했습니다.
-         이 방식이 배경 이미지의 칸에 정확히 맞추기 더 쉽습니다.
-      */}
-      
-      {/* 1열 (왼쪽) */}
+      {/* 내용: Medium(400) 유지 */}
       <div style={{ 
         position: 'absolute', top: 580, left: 510, 
-        display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28 
+        display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400
       }}>
         <div>관계1: 데이터 없음</div>
         <div>관계2: 데이터 없음</div>
         <div>관계3: 데이터 없음</div>
       </div>
 
-      {/* 2열 (중앙) - X좌표를 1200으로 설정 */}
       <div style={{ 
         position: 'absolute', top: 580, left: 1200, 
-        display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28 
+        display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400
       }}>
         <div>관계4: 데이터 없음</div>
         <div>관계5: 데이터 없음</div>
         <div>관계6: 데이터 없음</div>
       </div>
 
-      {/* 3열 (오른쪽) - X좌표를 1900으로 설정 */}
       <div style={{ 
         position: 'absolute', top: 580, left: 1900, 
-        display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28 
+        display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400
       }}>
         <div>관계7: 데이터 없음</div>
         <div>관계8: 데이터 없음</div>
@@ -125,7 +125,7 @@ app.get('/', async (c) => {
       {/* ================= 3. 하단 텍스트 ================= */}
       <div style={{ 
         position: 'absolute', top: 860, left: 780, width: 1800, height: 200,
-        display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center'
+        display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: 400
       }}>
         {/* {text} */}
       </div>
@@ -137,7 +137,14 @@ app.get('/', async (c) => {
       fonts: [
         {
           name: 'MyFont',
-          data: fontBuffer,
+          data: fontMediumBuffer,
+          weight: 400, // 일반 텍스트용 (Medium)
+          style: 'normal',
+        },
+        {
+          name: 'MyFont',
+          data: fontSemiBoldBuffer,
+          weight: 600, // 제목용 (SemiBold)
           style: 'normal',
         },
       ],

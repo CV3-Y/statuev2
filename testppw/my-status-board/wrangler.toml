@@ -1,0 +1,6 @@
+name = "my-status-board"
+main = "src/index.tsx"
+compatibility_date = "2024-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+minify = false

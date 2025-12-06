@@ -1,0 +1,16 @@
+{
+  "name": "my-status-board",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "@vercel/og": "^0.8.5",
+    "hono": "^4.10.7"
+  },
+  "devDependencies": {
+    "wrangler": "^4.4.0"
+  }
+}

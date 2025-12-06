@@ -45,7 +45,7 @@ app.get('/', async (c) => {
       {/* ================= 1. 상단 정보 ================= */}
       
       {/* [Date] 날짜 */}
-      <div style={{ position: 'absolute', top: 150, left: 120, fontSize: 48, fontWeight: 700 }}>Date</div>
+      <div style={{ position: 'absolute', top: 250, left: 120, fontSize: 48, fontWeight: 700 }}>Date</div>
       <div style={{ 
         position: 'absolute', top: 260, left: 80, width: 200, 
         display: 'flex', justifyContent: 'center', fontSize: 32, color: '#ffffff' 

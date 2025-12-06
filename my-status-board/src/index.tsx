@@ -3,7 +3,7 @@ import satori from 'satori'
 import { initWasm, Resvg } from '@resvg/resvg-wasm'
 import resvgWasm from '@resvg/resvg-wasm/index_bg.wasm'
 
-// WASM 초기화
+// 1. WASM 수동 초기화
 await initWasm(resvgWasm)
 
 const app = new Hono()
@@ -11,11 +11,12 @@ const app = new Hono()
 app.get('/', async (c) => {
   const { date, time, loc, job, text } = c.req.query()
 
-  // 폰트 & 배경 설정
+  // 폰트 & 배경 설정 (GitHub Raw URL)
   const fontUrl = 'https://github.com/CV3-Y/staute/raw/refs/heads/main/HangamePoker-Medium.ttf'
   const fontBuffer = await fetch(fontUrl).then((res) => res.arrayBuffer())
   const bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v2%20%EC%99%84%EC%84%B1%EB%B3%B8.png'
 
+  // 2. satori로 렌더링
   const svg = await satori(
     <div
       style={{
@@ -36,77 +37,89 @@ app.get('/', async (c) => {
         }}
       />
 
-      {/* ================= 상단 정보 (제목 + 값) ================= */}
+      {/* ================= 1. 상단 정보 (제목 & 값) ================= */}
       
-      {/* 1. Date (날짜) */}
-      <div style={{ position: 'absolute', top: 120, left: 140, fontSize: 80, fontWeight: 700 }}>Date</div>
-      <div style={{ position: 'absolute', top: 260, left: 50, width: 500, display: 'flex', justifyContent: 'center', fontSize: 50, color: '#ddd' }}>
+      {/* [Date] 날짜 */}
+      <div style={{ position: 'absolute', top: 226, left: 120, fontSize: '34.18pt', fontWeight: 700 }}>Date</div>
+      <div style={{ 
+        position: 'absolute', top: 348, left: 119, width: 101, 
+        display: 'flex', justifyContent: 'center', fontSize: '18.16pt', color: '#ffffff' 
+      }}>
         {date || 'N일차'}
       </div>
 
-      {/* 2. Time (시간) */}
-      <div style={{ position: 'absolute', top: 120, left: 810, fontSize: 80, fontWeight: 700 }}>Time</div>
-      <div style={{ position: 'absolute', top: 260, left: 720, width: 500, display: 'flex', justifyContent: 'center', fontSize: 50, color: '#ddd' }}>
+      {/* [Time] 시간 */}
+      <div style={{ position: 'absolute', top: 224, left: 672, fontSize: '34.18pt', fontWeight: 700 }}>Time</div>
+      <div style={{ 
+        position: 'absolute', top: 343, left: 671, width: 139, 
+        display: 'flex', justifyContent: 'center', fontSize: '18.16pt', color: '#ffffff' 
+      }}>
         {time || 'HH:MM'}
       </div>
 
-      {/* 3. Loc (위치) */}
-      <div style={{ position: 'absolute', top: 120, left: 1520, fontSize: 80, fontWeight: 700 }}>Loc</div>
-      <div style={{ position: 'absolute', top: 260, left: 1390, width: 500, display: 'flex', justifyContent: 'center', fontSize: 50, color: '#ddd' }}>
-        {loc || '현재 위치'}
+      {/* [Loc] 위치 */}
+      <div style={{ position: 'absolute', top: 222, left: 1220, fontSize: '34.18pt', fontWeight: 700 }}>Loc</div>
+      <div style={{ 
+        position: 'absolute', top: 341, left: 1220, width: 157, 
+        display: 'flex', justifyContent: 'center', fontSize: '18.16pt', color: '#ffffff' 
+      }}>
+        {loc || '위치'}
       </div>
 
-      {/* 4. Class (직업) */}
-      <div style={{ position: 'absolute', top: 120, left: 2150, fontSize: 80, fontWeight: 700 }}>Class</div>
-      <div style={{ position: 'absolute', top: 260, left: 2060, width: 500, display: 'flex', justifyContent: 'center', fontSize: 50, color: '#ddd' }}>
-        {job || '역할(직업)'}
+      {/* [Class] 직업/역할 */}
+      <div style={{ position: 'absolute', top: 219, left: 1780, fontSize: '34.18pt', fontWeight: 700 }}>Class</div>
+      <div style={{ 
+        position: 'absolute', top: 339, left: 1779, width: 180, 
+        display: 'flex', justifyContent: 'center', fontSize: '18.16pt', color: '#ffffff' 
+      }}>
+        {job || '직업'}
       </div>
 
 
-      {/* ================= 중간 관계창 (Relationship) ================= */}
+      {/* ================= 2. 관계창 (Relationship) ================= */}
       
       {/* 제목 */}
-      <div style={{ position: 'absolute', top: 430, left: 620, fontSize: 70, textDecoration: 'underline', textUnderlineOffset: 15 }}>Relationship</div>
+      <div style={{ position: 'absolute', top: 504, left: 507, fontSize: '23.54pt' }}>Relationship</div>
       
-      {/* 관계 목록 (3열 배치) */}
+      {/* 관계 목록 컨테이너 */}
       <div style={{ 
-        position: 'absolute', top: 560, left: 620, width: 1900, 
-        display: 'flex', flexDirection: 'row', justifyContent: 'space-between', fontSize: 45 
+        position: 'absolute', 
+        top: 609,      // 시작 Y
+        left: 539,     // 시작 X
+        display: 'flex', 
+        flexDirection: 'row', 
+        gap: 770,      // 열 간격 (가로)
+        fontSize: '18.96pt' // 폰트 크기
       }}>
         {/* 1열 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div>관계1: 예시 데이터</div>
-          <div>관계2: 예시 데이터</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+          <div>관계1: 데이터 없음</div>
+          <div>관계2: 데이터 없음</div>
         </div>
+
         {/* 2열 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div>관계3: 예시 데이터</div>
-          <div>관계4: 예시 데이터</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+          <div>관계3: 데이터 없음</div>
+          <div>관계4: 데이터 없음</div>
         </div>
+
         {/* 3열 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div>관계5: 예시 데이터</div>
-          <div>관계6: 예시 데이터</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+          <div>관계5: 데이터 없음</div>
+          <div>관계6: 데이터 없음</div>
         </div>
       </div>
 
 
-      {/* ================= 좌측 하단 (영혼 오염도) ================= */}
-      <div style={{ 
-        position: 'absolute', top: 660, left: 50, width: 480, 
-        display: 'flex', justifyContent: 'center', fontSize: 40, color: '#aaa' 
-      }}>
-        &gt; 영혼 오염도
-      </div>
-
-
-      {/* ================= 최하단 메인 텍스트 (Incident) ================= */}
+      {/* ================= 3. 하단 텍스트 (공백 유지) ================= */}
+      {/* 추후 텍스트를 넣을 위치입니다.
+         현재는 요청하신 대로 비워둡니다.
+      */}
       <div style={{ 
         position: 'absolute', top: 860, left: 780, width: 1800, height: 200,
-        display: 'flex', alignItems: 'center', justifyContent: 'center', 
-        fontSize: 55, textAlign: 'center', lineHeight: 1.4
+        display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center'
       }}>
-        {text || '여기에 현재 상황이나 사건에 대한 설명이 출력됩니다.'}
+        {/* {text} */}
       </div>
 
     </div>,
@@ -123,11 +136,15 @@ app.get('/', async (c) => {
     }
   )
 
+  // 3. PNG 변환 및 반환
   const resvg = new Resvg(svg)
   const pngData = resvg.render().asPng()
 
   return new Response(pngData, {
-    headers: { 'Content-Type': 'image/png' },
+    headers: {
+      'Content-Type': 'image/png',
+      'Cache-Control': 'public, max-age=60', 
+    },
   })
 })
 

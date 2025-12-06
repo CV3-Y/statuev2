@@ -63,19 +63,19 @@ app.get('/', async (c) => {
 
       {/* ================= 2. 관계창 (Relationship) ================= */}
       
-      <div style={{ position: 'absolute', top: 490, left: 505, fontSize: 48, fontWeight: 600 }}>Relationship</div>
+      <div style={{ position: 'absolute', top: 488, left: 505, fontSize: 48, fontWeight: 600 }}>Relationship</div>
       
-      <div style={{ position: 'absolute', top: 580, left: 510, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
+      <div style={{ position: 'absolute', top: 620, left: 510, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
         <div>관계1: 데이터 없음</div>
         <div>관계2: 데이터 없음</div>
         <div>관계3: 데이터 없음</div>
       </div>
-      <div style={{ position: 'absolute', top: 580, left: 1200, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
+      <div style={{ position: 'absolute', top: 620, left: 1200, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
         <div>관계4: 데이터 없음</div>
         <div>관계5: 데이터 없음</div>
         <div>관계6: 데이터 없음</div>
       </div>
-      <div style={{ position: 'absolute', top: 580, left: 1900, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
+      <div style={{ position: 'absolute', top: 620, left: 1900, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
         <div>관계7: 데이터 없음</div>
         <div>관계8: 데이터 없음</div>
         <div>관계9: 데이터 없음</div>

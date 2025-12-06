@@ -48,10 +48,10 @@ app.get('/', async (c) => {
       {/* ================= 1. 상단 정보 ================= */}
       
       {/* [Date] 제목: SemiBold(600) 적용 */}
-      <div style={{ position: 'absolute', top: 250, left: 120, fontSize: 60, fontWeight: 600 }}>Date</div>
+      <div style={{ position: 'absolute', top: 230, left: 120, fontSize: 60, fontWeight: 600 }}>Date</div>
       {/* [Date] 값: Medium(400) 유지 */}
       <div style={{ 
-        position: 'absolute', top: 300, left: 80, width: 200, 
+        position: 'absolute', top: 320, left: 80, width: 200, 
         display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' 
       }}>
         {date || 'N일차'}

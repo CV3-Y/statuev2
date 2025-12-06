@@ -1,6 +1,9 @@
-name = "my-status-board1"
+name = "my-status-board1"  
 main = "src/index.tsx"
-compatibility_date = "2024-04-01"
+compatibility_date = "2024-12-07" 
 compatibility_flags = ["nodejs_compat"]
 
-minify = false
+[[rules]]
+type = "CompiledWasm"
+globs = ["**/*.wasm"]
+fallthrough = true

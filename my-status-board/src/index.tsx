@@ -48,13 +48,13 @@ app.get('/', async (c) => {
           2. 값(Value)에서 width 제한과 justifyContent: 'center'를 제거 -> 오른쪽으로 자연스럽게 확장됨
       */}
       
-      {/* [Date] 날짜 */}
+      {/* [Day] 날짜 */}
       <div style={{ position: 'absolute', top: 225, left: 120, fontSize: 60, fontWeight: 600 }}>Date</div>
       <div style={{ 
         position: 'absolute', top: 345, left: 120, 
         display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' 
       }}>
-        {date || 'N일차'}
+        {day || 'N일차'}
       </div>
 
       {/* [Time] 시간 */}

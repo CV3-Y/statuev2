@@ -4,7 +4,7 @@ import satori from 'satori'
 const app = new Hono()
 
 app.get('/', async (c) => {
-  // rels(관계 데이터) 파라미터 추가
+  // rels 파라미터로 관계 데이터 받기 (콤마로 구분)
   const { date, time, loc, job, text, hp, maxHp, rels } = c.req.query()
 
   // 1. HP 비율 계산
@@ -29,8 +29,7 @@ app.get('/', async (c) => {
     bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v3v1.png';
   }
 
-  // 3. 관계 데이터 파싱 (쉼표로 구분)
-  // 입력이 없으면 빈 배열 -> 화면에 아무것도 안 뜸
+  // 3. 관계 데이터 파싱
   const relationships = rels ? rels.split(',') : [];
 
   // 4. 폰트 불러오기
@@ -76,28 +75,31 @@ app.get('/', async (c) => {
       <div style={{ position: 'absolute', top: 225, left: 1795, fontSize: 60, fontWeight: 600 }}>Class</div>
       <div style={{ position: 'absolute', top: 345, left: 1795, display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{job || '직업'}</div>
 
-      {/* ================= 2. 관계창 (동적 데이터 적용) ================= */}
+      {/* ================= 2. 관계창 (1열 4줄로 변경) ================= */}
       <div style={{ position: 'absolute', top: 488, left: 505, fontSize: 48, fontWeight: 600 }}>Relationship</div>
       
-      {/* 1열 (1~3번 데이터) */}
+      {/* 1열 (1~4번 데이터) */}
       <div style={{ position: 'absolute', top: 595, left: 530, display: 'flex', flexDirection: 'column', gap: 10, fontSize: 33, fontWeight: 400 }}>
         <div>{relationships[0] || ''}</div>
         <div>{relationships[1] || ''}</div>
         <div>{relationships[2] || ''}</div>
+        <div>{relationships[3] || ''}</div>
       </div>
       
-      {/* 2열 (4~6번 데이터) */}
-      <div style={{ position: 'absolute', top: 595, left: 1230, display: 'flex', flexDirection: 'column', gap: 40, fontSize: 33, fontWeight: 400 }}>
-        <div>{relationships[3] || ''}</div>
+      {/* 2열 (5~8번 데이터) */}
+      <div style={{ position: 'absolute', top: 595, left: 1230, display: 'flex', flexDirection: 'column', gap: 10, fontSize: 33, fontWeight: 400 }}>
         <div>{relationships[4] || ''}</div>
         <div>{relationships[5] || ''}</div>
-      </div>
-      
-      {/* 3열 (7~9번 데이터) */}
-      <div style={{ position: 'absolute', top: 595, left: 2030, display: 'flex', flexDirection: 'column', gap: 40, fontSize: 33, fontWeight: 400 }}>
         <div>{relationships[6] || ''}</div>
         <div>{relationships[7] || ''}</div>
+      </div>
+      
+      {/* 3열 (9~12번 데이터) */}
+      <div style={{ position: 'absolute', top: 595, left: 2030, display: 'flex', flexDirection: 'column', gap: 10, fontSize: 33, fontWeight: 400 }}>
         <div>{relationships[8] || ''}</div>
+        <div>{relationships[9] || ''}</div>
+        <div>{relationships[10] || ''}</div>
+        <div>{relationships[11] || ''}</div>
       </div>
 
       {/* ================= 3. 하단 텍스트 (System Loading...) ================= */}

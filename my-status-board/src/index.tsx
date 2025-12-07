@@ -69,7 +69,7 @@ app.get('/', async (c) => {
         <div>관계9: 데이터 없음</div>
       </div>
 
-      {/* ================= 3. 하단 텍스트 (커서 도형 변경) ================= */}
+      {/* ================= 3. 하단 텍스트 ================= */}
       <div style={{
         position: 'absolute', top: 860, left: 780, width: 1800, height: 200,
         display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: 400,
@@ -77,13 +77,12 @@ app.get('/', async (c) => {
       }}>
         {text || '입력 대기 중...'}
         
-        {/* ▼ 커서: 글자(|) 대신 직사각형 도형(div) 사용 */}
-        {/* 이렇게 하면 SVG 내부에서 <rect> 태그로 변환되어 CSS로 찾기 쉽습니다. */}
+        {/* ▼ [수정 1] 커서 색상을 '#fefefe'로 변경 (눈에는 흰색이지만 코드는 다름) */}
         <div style={{
           marginLeft: 10,
-          width: 4,       // 커서 두께
-          height: 40,     // 커서 높이 (글자 크기에 맞춰 조절)
-          backgroundColor: 'white',
+          width: 4,
+          height: 40,
+          backgroundColor: '#fefefe', // 유니크한 식별용 색상
           display: 'flex'
         }} />
       </div>
@@ -98,8 +97,7 @@ app.get('/', async (c) => {
     }
   )
 
-  // 3. CSS 애니메이션 주입 (rect 태그 타겟팅)
-  // Satori 결과물의 맨 마지막 부분(</svg> 앞)에 스타일을 넣습니다.
+  // 3. CSS 애니메이션 주입
   const animatedSvg = svg.replace(
     '</svg>',
     `
@@ -108,9 +106,8 @@ app.get('/', async (c) => {
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
       }
-      /* SVG 내부의 '마지막 사각형(rect)'을 찾아서 깜빡이게 합니다. */
-      /* 우리가 추가한 커서용 div가 코드상 맨 마지막에 있으므로 정확히 선택됩니다. */
-      rect:last-of-type {
+      /* [수정 2] '#fefefe' 색상을 가진 사각형만 정확히 타겟팅 */
+      rect[fill="#fefefe"] {
         animation: blink 1s step-end infinite;
       }
     </style>
@@ -120,7 +117,6 @@ app.get('/', async (c) => {
   return new Response(animatedSvg, {
     headers: {
       'Content-Type': 'image/svg+xml',
-      // 캐시 방지 (애니메이션 확인용)
       'Cache-Control': 'no-cache, no-store, must-revalidate',
     },
   })

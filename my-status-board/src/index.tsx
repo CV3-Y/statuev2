@@ -4,9 +4,41 @@ import satori from 'satori'
 const app = new Hono()
 
 app.get('/', async (c) => {
-  const { date, time, loc, job, text } = c.req.query()
+  const { date, time, loc, job, text, hp, maxHp } = c.req.query()
 
-  // 1. 폰트 불러오기
+  // 1. HP 비율 계산
+  const currentHpVal = hp ? parseInt(hp) : 100;
+  const maxHpVal = maxHp ? parseInt(maxHp) : 100;
+  
+  // 퍼센트 계산 (0~100 사이로 제한)
+  // 예: 50/100 -> 50, 200/200 -> 100
+  let percentage = 100;
+  if (maxHpVal > 0) {
+    percentage = Math.min(Math.max(Math.round((currentHpVal / maxHpVal) * 100), 0), 100);
+  }
+
+  // 2. [사용자 설정] HP 단계별 배경 이미지 URL 설정
+  // 각 단계에 맞는 이미지 주소를 따옴표 안에 넣어주세요.
+  let bgUrl = '';
+
+  if (percentage <= 20) {
+    // HP 0% ~ 20% (위험/빨강)
+    bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v3v5.png'; 
+  } else if (percentage <= 40) {
+    // HP 21% ~ 40% (주황)
+    bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v3v4.png';
+  } else if (percentage <= 60) {
+    // HP 41% ~ 60% (노랑)
+    bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v3v3.png';
+  } else if (percentage <= 80) {
+    // HP 61% ~ 80% (연두)
+    bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v3v2.png';
+  } else {
+    // HP 81% ~ 100% (초록/가득참) - 기본값
+    bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v3v1.png';
+  }
+
+  // 3. 폰트 불러오기
   const fontMediumUrl = 'https://github.com/CV3-Y/staute/raw/refs/heads/main/HangamePoker-Medium.ttf'
   const fontSemiBoldUrl = 'https://github.com/CV3-Y/staute/raw/refs/heads/main/HangamePoker-SemiBold.ttf'
 
@@ -15,9 +47,7 @@ app.get('/', async (c) => {
     fetch(fontSemiBoldUrl).then((res) => res.arrayBuffer()),
   ])
 
-  const bgUrl = 'https://raw.githubusercontent.com/CV3-Y/staute/refs/heads/main/v2%20%EC%99%84%EC%84%B1%EB%B3%B8.png'
-
-  // 2. Satori로 SVG 생성
+  // 4. Satori로 SVG 생성
   const svg = await satori(
     <div
       style={{
@@ -31,6 +61,7 @@ app.get('/', async (c) => {
         fontWeight: 400,
       }}
     >
+      {/* 배경 이미지 (HP에 따라 변경됨) */}
       <img
         src={bgUrl}
         style={{
@@ -73,15 +104,14 @@ app.get('/', async (c) => {
       <div style={{
         position: 'absolute', top: 880, left: -90, width: 1800, height: 200,
         display: 'flex',
-        flexDirection: 'column', // 세로 정렬 (줄바꿈 효과)
-        justifyContent: 'center', // 박스 안에서 중앙 위치
-        alignItems: 'center',     // 가로 기준 중앙 정렬
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
         fontSize: 40,
         fontWeight: 400,
-        color: 'rgba(255, 255, 255, 0.6)', // [반투명 적용] 0.6 = 60% 불투명도
+        color: 'rgba(255, 255, 255, 0.6)',
         lineHeight: 1.5,
       }}>
-        {/* text 파라미터가 없으면 기본 로딩 메시지 출력 */}
         {!text ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <div>System Loading...</div>
@@ -89,16 +119,15 @@ app.get('/', async (c) => {
               └ Completed
               {/* ▼ 커서 (도형) */}
               <div style={{
-                marginLeft: 15,          // [수정 가이드] 글자와 커서 사이 간격
-                width: 12,               // [수정 가이드] 커서 두께
-                height: 40,              // [수정 가이드] 커서 높이
-                backgroundColor: '#fefefe', // 식별용 색상 (변경 금지)
+                marginLeft: 15,
+                width: 12,
+                height: 40,
+                backgroundColor: '#fefefe',
                 display: 'flex'
               }} />
             </div>
           </div>
         ) : (
-          /* text 파라미터가 있으면 그 내용 출력 */
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {text}
             <div style={{ marginLeft: 10, width: 4, height: 40, backgroundColor: '#fefefe', display: 'flex' }} />
@@ -116,7 +145,7 @@ app.get('/', async (c) => {
     }
   )
 
-  // 3. CSS 애니메이션 주입 (rect[fill="#fefefe"] 타겟팅)
+  // 5. CSS 애니메이션 주입 (커서 깜빡임)
   const animatedSvg = svg.replace(
     '</svg>',
     `

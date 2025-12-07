@@ -69,38 +69,44 @@ app.get('/', async (c) => {
         <div>관계9: 데이터 없음</div>
       </div>
 
-{/* ================= 3. 하단 텍스트 (수정됨) ================= */}
+      {/* ================= 3. 하단 텍스트 (System Loading...) ================= */}
       <div style={{
         position: 'absolute', top: 860, left: 780, width: 1800, height: 200,
         display: 'flex',
-        flexDirection: 'column', // 세로로 나열 (줄바꿈 효과)
-        justifyContent: 'center', // 박스 내에서 수직 중앙 정렬
-        alignItems: 'flex-start', // 텍스트를 왼쪽 정렬 (중앙 정렬 원하면 'center'로 변경)
-        paddingLeft: 100,         // 왼쪽 여백 (왼쪽 정렬 시 너무 붙지 않게)
-        fontSize: 32,             // 폰트 크기
+        flexDirection: 'column', // 세로 정렬 (줄바꿈 효과)
+        justifyContent: 'center', // 박스 안에서 중앙 위치
+        alignItems: 'center',     // 가로 기준 중앙 정렬
+        fontSize: 40,
         fontWeight: 400,
-        color: 'rgba(255, 255, 255, 0.5)' // [핵심] 글자 반투명 (0.5 = 50% 투명도)
+        color: 'rgba(255, 255, 255, 0.6)', // [반투명 적용] 0.6 = 60% 불투명도
+        lineHeight: 1.5,
       }}>
-        
-        {/* 첫 번째 줄 */}
-        <div style={{ marginBottom: 15 }}>System Loading...</div>
+        {/* text 파라미터가 없으면 기본 로딩 메시지 출력 */}
+        {!text ? (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <div>System Loading...</div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              └ Completed
+              {/* ▼ 커서 (도형) */}
+              <div style={{
+                marginLeft: 15,          // [수정 가이드] 글자와 커서 사이 간격
+                width: 12,               // [수정 가이드] 커서 두께
+                height: 40,              // [수정 가이드] 커서 높이
+                backgroundColor: '#fefefe', // 식별용 색상 (변경 금지)
+                display: 'flex'
+              }} />
+            </div>
+          </div>
+        ) : (
+          /* text 파라미터가 있으면 그 내용 출력 */
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {text}
+            <div style={{ marginLeft: 10, width: 4, height: 40, backgroundColor: '#fefefe', display: 'flex' }} />
+          </div>
+        )}
+      </div>
 
-        {/* 두 번째 줄 (텍스트 + 커서) */}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span>└ Completed</span>
-          
-          {/* ▼▼▼ 커서 위치/크기 수정하는 곳 ▼▼▼ */}
-          <div style={{
-            marginLeft: 15,             // [수정] 글자와 커서 사이 간격 (가로 위치)
-            marginTop: 0,               // [수정] 커서 위아래 미세 조정 필요 시 사용 (음수 가능)
-            width: 4,                   // [수정] 커서 두께
-            height: 32,                 // [수정] 커서 높이
-            backgroundColor: '#fefefe', // 애니메이션용 색상 키 (수정 금지)
-            display: 'flex'
-          }} />
-        </div>
-
-      </div>,
+    </div>,
     {
       width: 2667, height: 1144,
       fonts: [
@@ -110,7 +116,7 @@ app.get('/', async (c) => {
     }
   )
 
-  // 3. CSS 애니메이션 주입
+  // 3. CSS 애니메이션 주입 (rect[fill="#fefefe"] 타겟팅)
   const animatedSvg = svg.replace(
     '</svg>',
     `
@@ -119,7 +125,6 @@ app.get('/', async (c) => {
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
       }
-      /* [수정 2] '#fefefe' 색상을 가진 사각형만 정확히 타겟팅 */
       rect[fill="#fefefe"] {
         animation: blink 1s step-end infinite;
       }

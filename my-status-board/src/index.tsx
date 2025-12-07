@@ -70,12 +70,12 @@ app.get('/', async (c) => {
         <div>관계2: 데이터 없음</div>
         <div>관계3: 데이터 없음</div>
       </div>
-      <div style={{ position: 'absolute', top: 620, left: 1200, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
+      <div style={{ position: 'absolute', top: 595, left: 1230, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 33, fontWeight: 400 }}>
         <div>관계4: 데이터 없음</div>
         <div>관계5: 데이터 없음</div>
         <div>관계6: 데이터 없음</div>
       </div>
-      <div style={{ position: 'absolute', top: 620, left: 1900, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 28, fontWeight: 400 }}>
+      <div style={{ position: 'absolute', top: 595, left: 2030, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 33, fontWeight: 400 }}>
         <div>관계7: 데이터 없음</div>
         <div>관계8: 데이터 없음</div>
         <div>관계9: 데이터 없음</div>

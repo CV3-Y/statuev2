@@ -42,29 +42,54 @@ app.get('/', async (c) => {
         }}
       />
 
-      {/* ================= 1. 상단 정보 (수정된 좌표 적용) ================= */}
+      {/* ================= 1. 상단 정보 (좌측 정렬 적용) ================= */}
+      {/* [수정 포인트]
+          1. 제목(Label)과 값(Value)의 Left 좌표를 동일하게 맞춤 (예: Date는 둘 다 120)
+          2. 값(Value)에서 width 제한과 justifyContent: 'center'를 제거 -> 오른쪽으로 자연스럽게 확장됨
+      */}
       
-      {/* [Date] 날짜 (사용자 수정본) */}
+      {/* [Date] 날짜 */}
       <div style={{ position: 'absolute', top: 225, left: 120, fontSize: 60, fontWeight: 600 }}>Date</div>
-      <div style={{ position: 'absolute', top: 345, left: 64, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{date || 'N일차'}</div>
+      <div style={{ 
+        position: 'absolute', top: 345, left: 120, 
+        display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' 
+      }}>
+        {date || 'N일차'}
+      </div>
 
-      {/* [Time] 시간 (자동 계산됨: Top +75, Value Top +85, Value Left -16) */}
+      {/* [Time] 시간 */}
       <div style={{ position: 'absolute', top: 225, left: 677, fontSize: 60, fontWeight: 600 }}>Time</div>
-      <div style={{ position: 'absolute', top: 345, left: 635, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{time || 'HH:MM'}</div>
+      <div style={{ 
+        position: 'absolute', top: 345, left: 677, 
+        display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' 
+      }}>
+        {time || 'HH:MM'}
+      </div>
 
-      {/* [Loc] 위치 (자동 계산됨) */}
+      {/* [Loc] 위치 */}
       <div style={{ position: 'absolute', top: 225, left: 1230, fontSize: 60, fontWeight: 600 }}>Loc</div>
-      <div style={{ position: 'absolute', top: 345, left: 1169, width: 200, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{loc || '위치'}</div>
+      <div style={{ 
+        position: 'absolute', top: 345, left: 1230, 
+        display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' 
+      }}>
+        {loc || '위치'}
+      </div>
 
-      {/* [Class] 직업 (자동 계산됨) */}
+      {/* [Class] 직업 */}
       <div style={{ position: 'absolute', top: 225, left: 1795, fontSize: 60, fontWeight: 600 }}>Class</div>
-      <div style={{ position: 'absolute', top: 345, left: 1729, width: 220, display: 'flex', justifyContent: 'center', fontSize: 32, fontWeight: 400, color: '#ffffff' }}>{job || '직업'}</div>
+      <div style={{ 
+        position: 'absolute', top: 345, left: 1795, 
+        display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' 
+      }}>
+        {job || '직업'}
+      </div>
 
 
       {/* ================= 2. 관계창 (Relationship) ================= */}
       
       <div style={{ position: 'absolute', top: 488, left: 505, fontSize: 48, fontWeight: 600 }}>Relationship</div>
       
+      {/* 관계창 목록: 기본적으로 좌측 정렬(flex-start) 상태이므로 유지 */}
       <div style={{ position: 'absolute', top: 595, left: 530, display: 'flex', flexDirection: 'column', gap: 40, fontSize: 33, fontWeight: 400 }}>
         <div>관계1: 데이터 없음</div>
         <div>관계2: 데이터 없음</div>
@@ -81,8 +106,12 @@ app.get('/', async (c) => {
         <div>관계9: 데이터 없음</div>
       </div>
 
-      {/* ================= 3. 하단 텍스트 ================= */}
-      <div style={{ position: 'absolute', top: 860, left: 780, width: 1800, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: 400 }}>
+      {/* ================= 3. 하단 텍스트 (중앙 정렬 유지) ================= */}
+      {/* 긴 텍스트는 보통 중앙 정렬이 보기에 좋아 유지했지만, 좌측 정렬을 원하시면 justifyContent를 지우시면 됩니다. */}
+      <div style={{ 
+        position: 'absolute', top: 860, left: 780, width: 1800, height: 200, 
+        display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: 400 
+      }}>
         {/* {text} */}
       </div>
 

@@ -102,7 +102,7 @@ app.get('/', async (c) => {
 
       {/* ================= 3. 하단 텍스트 (System Loading...) ================= */}
       <div style={{
-        position: 'absolute', top: 880, left: -265, width: 1800, height: 200,
+        position: 'absolute', top: 880, left: -255, width: 1800, height: 200,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

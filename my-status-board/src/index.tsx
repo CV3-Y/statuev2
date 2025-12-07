@@ -80,7 +80,7 @@ app.get('/', async (c) => {
       <div style={{ position: 'absolute', top: 488, left: 505, fontSize: 48, fontWeight: 600 }}>Relationship</div>
       
       {/* 1열 (1~3번 데이터) */}
-      <div style={{ position: 'absolute', top: 595, left: 530, display: 'flex', flexDirection: 'column', gap: 20, fontSize: 33, fontWeight: 400 }}>
+      <div style={{ position: 'absolute', top: 595, left: 530, display: 'flex', flexDirection: 'column', gap: 10, fontSize: 33, fontWeight: 400 }}>
         <div>{relationships[0] || ''}</div>
         <div>{relationships[1] || ''}</div>
         <div>{relationships[2] || ''}</div>

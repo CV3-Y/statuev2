@@ -71,7 +71,7 @@ app.get('/', async (c) => {
 
       {/* ================= 3. 하단 텍스트 (System Loading...) ================= */}
       <div style={{
-        position: 'absolute', top: 860, left: 480, width: 1800, height: 200,
+        position: 'absolute', top: 860, left: 180, width: 1800, height: 200,
         display: 'flex',
         flexDirection: 'column', // 세로 정렬 (줄바꿈 효과)
         justifyContent: 'center', // 박스 안에서 중앙 위치

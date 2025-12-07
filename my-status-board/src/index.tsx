@@ -67,7 +67,7 @@ app.get('/', async (c) => {
       </div>
 
       {/* [Loc] 위치 */}
-      <div style={{ position: 'absolute', top: 225, left: 1235, fontSize: 60, fontWeight: 600 }}>Loc</div>
+      <div style={{ position: 'absolute', top: 225, left: 1230, fontSize: 60, fontWeight: 600 }}>Loc</div>
       <div style={{ 
         position: 'absolute', top: 345, left: 1227, 
         display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' 
@@ -76,9 +76,9 @@ app.get('/', async (c) => {
       </div>
 
       {/* [Class] 직업 */}
-      <div style={{ position: 'absolute', top: 225, left: 1780, fontSize: 60, fontWeight: 600 }}>Class</div>
+      <div style={{ position: 'absolute', top: 225, left: 1795, fontSize: 60, fontWeight: 600 }}>Class</div>
       <div style={{ 
-        position: 'absolute', top: 345, left: 1792, 
+        position: 'absolute', top: 345, left: 179, 
         display: 'flex', fontSize: 32, fontWeight: 400, color: '#ffffff' 
       }}>
         {job || '직업'}

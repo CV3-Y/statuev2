@@ -69,25 +69,38 @@ app.get('/', async (c) => {
         <div>관계9: 데이터 없음</div>
       </div>
 
-      {/* ================= 3. 하단 텍스트 ================= */}
+{/* ================= 3. 하단 텍스트 (수정됨) ================= */}
       <div style={{
         position: 'absolute', top: 860, left: 780, width: 1800, height: 200,
-        display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: 400,
-        color: 'white'
+        display: 'flex',
+        flexDirection: 'column', // 세로로 나열 (줄바꿈 효과)
+        justifyContent: 'center', // 박스 내에서 수직 중앙 정렬
+        alignItems: 'flex-start', // 텍스트를 왼쪽 정렬 (중앙 정렬 원하면 'center'로 변경)
+        paddingLeft: 100,         // 왼쪽 여백 (왼쪽 정렬 시 너무 붙지 않게)
+        fontSize: 32,             // 폰트 크기
+        fontWeight: 400,
+        color: 'rgba(255, 255, 255, 0.5)' // [핵심] 글자 반투명 (0.5 = 50% 투명도)
       }}>
-        {text || '입력 대기 중...'}
         
-        {/* ▼ [수정 1] 커서 색상을 '#fefefe'로 변경 (눈에는 흰색이지만 코드는 다름) */}
-        <div style={{
-          marginLeft: 10,
-          width: 4,
-          height: 40,
-          backgroundColor: '#fefefe', // 유니크한 식별용 색상
-          display: 'flex'
-        }} />
-      </div>
+        {/* 첫 번째 줄 */}
+        <div style={{ marginBottom: 15 }}>System Loading...</div>
 
-    </div>,
+        {/* 두 번째 줄 (텍스트 + 커서) */}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span>└ Completed</span>
+          
+          {/* ▼▼▼ 커서 위치/크기 수정하는 곳 ▼▼▼ */}
+          <div style={{
+            marginLeft: 15,             // [수정] 글자와 커서 사이 간격 (가로 위치)
+            marginTop: 0,               // [수정] 커서 위아래 미세 조정 필요 시 사용 (음수 가능)
+            width: 4,                   // [수정] 커서 두께
+            height: 32,                 // [수정] 커서 높이
+            backgroundColor: '#fefefe', // 애니메이션용 색상 키 (수정 금지)
+            display: 'flex'
+          }} />
+        </div>
+
+      </div>,
     {
       width: 2667, height: 1144,
       fonts: [
